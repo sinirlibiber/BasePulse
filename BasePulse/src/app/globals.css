@@ -1,0 +1,252 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   BasePulse Global Styles
+   ============================================ */
+
+:root {
+  /* Base brand colors */
+  --base-blue: #0052FF;
+  --base-dark: #0A0B0D;
+  
+  /* BasePulse palette */
+  --pulse-primary: #6366F1;
+  --pulse-secondary: #8B5CF6;
+  --pulse-accent: #F472B6;
+  --pulse-success: #10B981;
+  --pulse-warning: #F59E0B;
+  --pulse-error: #EF4444;
+  --pulse-dark: #0F0F23;
+  --pulse-darker: #070714;
+  --pulse-card: #1A1A2E;
+  --pulse-border: #2D2D44;
+}
+
+/* ============================================
+   Base Layer
+   ============================================ */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-pulse-darker text-white;
+    background: linear-gradient(180deg, #0F0F23 0%, #070714 100%);
+    min-height: 100vh;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-pulse-dark;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-pulse-border rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-pulse-primary;
+  }
+  
+  /* Selection */
+  ::selection {
+    @apply bg-pulse-primary/30 text-white;
+  }
+}
+
+/* ============================================
+   Component Layer
+   ============================================ */
+
+@layer components {
+  /* Glass card effect */
+  .glass-card {
+    @apply bg-pulse-card/50 backdrop-blur-xl border border-pulse-border/50 rounded-2xl;
+    box-shadow: 
+      0 4px 6px -1px rgba(0, 0, 0, 0.3),
+      0 2px 4px -2px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+  }
+  
+  /* Gradient border effect */
+  .gradient-border {
+    position: relative;
+    background: linear-gradient(135deg, var(--pulse-card) 0%, var(--pulse-darker) 100%);
+    border-radius: 1rem;
+  }
+  
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, var(--pulse-primary) 0%, var(--pulse-secondary) 50%, var(--pulse-accent) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+  
+  /* Primary button */
+  .btn-primary {
+    @apply px-6 py-3 rounded-xl font-semibold transition-all duration-300;
+    @apply bg-gradient-to-r from-pulse-primary via-pulse-secondary to-pulse-accent;
+    @apply hover:shadow-lg hover:shadow-pulse-primary/25 hover:scale-105;
+    @apply active:scale-95;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100;
+  }
+  
+  /* Secondary button */
+  .btn-secondary {
+    @apply px-6 py-3 rounded-xl font-semibold transition-all duration-300;
+    @apply bg-pulse-card border border-pulse-border;
+    @apply hover:border-pulse-primary hover:bg-pulse-card/80;
+    @apply active:scale-95;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  
+  /* Ghost button */
+  .btn-ghost {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200;
+    @apply text-gray-400 hover:text-white hover:bg-pulse-card/50;
+    @apply active:scale-95;
+  }
+  
+  /* Input field */
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl transition-all duration-200;
+    @apply bg-pulse-dark/50 border border-pulse-border;
+    @apply text-white placeholder:text-gray-500;
+    @apply focus:outline-none focus:border-pulse-primary focus:ring-2 focus:ring-pulse-primary/20;
+  }
+  
+  /* Textarea */
+  .textarea-field {
+    @apply w-full px-4 py-3 rounded-xl transition-all duration-200 resize-none;
+    @apply bg-pulse-dark/50 border border-pulse-border;
+    @apply text-white placeholder:text-gray-500;
+    @apply focus:outline-none focus:border-pulse-primary focus:ring-2 focus:ring-pulse-primary/20;
+  }
+  
+  /* Avatar */
+  .avatar {
+    @apply rounded-full overflow-hidden bg-pulse-card;
+    @apply ring-2 ring-pulse-border;
+  }
+  
+  .avatar-gradient {
+    @apply rounded-full p-0.5;
+    background: linear-gradient(135deg, var(--pulse-primary), var(--pulse-secondary), var(--pulse-accent));
+  }
+  
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    @apply bg-pulse-primary/20 text-pulse-primary border border-pulse-primary/30;
+  }
+  
+  .badge-success {
+    @apply bg-pulse-success/20 text-pulse-success border-pulse-success/30;
+  }
+  
+  .badge-warning {
+    @apply bg-pulse-warning/20 text-pulse-warning border-pulse-warning/30;
+  }
+  
+  /* Pulse animation for loading */
+  .pulse-loader {
+    @apply animate-pulse bg-gradient-to-r from-pulse-card via-pulse-border to-pulse-card;
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+  
+  /* Glow effect */
+  .glow {
+    box-shadow: 
+      0 0 20px rgba(99, 102, 241, 0.3),
+      0 0 40px rgba(139, 92, 246, 0.2),
+      0 0 60px rgba(244, 114, 182, 0.1);
+  }
+  
+  /* Text gradient */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, var(--pulse-primary) 0%, var(--pulse-secondary) 50%, var(--pulse-accent) 100%);
+  }
+}
+
+/* ============================================
+   Utility Layer
+   ============================================ */
+
+@layer utilities {
+  /* Hide scrollbar */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  /* Shimmer animation */
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+  /* Floating animation */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  /* Stagger animations */
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+  .stagger-5 { animation-delay: 0.5s; }
+}
+
+/* ============================================
+   Wallet Modal Overrides (Reown AppKit)
+   ============================================ */
+
+:root {
+  --w3m-accent: #6366F1;
+  --w3m-color-mix: #8B5CF6;
+  --w3m-color-mix-strength: 40;
+  --w3m-border-radius-master: 16px;
+  --w3m-font-family: var(--font-geist-sans);
+}
+
+/* Dark theme overrides for wallet modal */
+w3m-modal {
+  --w3m-background-color: #0F0F23;
+  --w3m-foreground-color: #1A1A2E;
+}
+
